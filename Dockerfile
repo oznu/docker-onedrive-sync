@@ -14,8 +14,12 @@ RUN wget https://github.com/skilion/onedrive/archive/master.zip && unzip master.
 
 RUN cd onedrive-master && make && make install
 
-ADD ./onedrive.conf /usr/local/etc/onedrive.conf
 
-VOLUME ['/usr/local/etc/onedrive.conf', '/onedrive']
+VOLUME ["/usr/local/etc/my_onedrive.conf", "/onedrive"]
 
-ENTRYPOINT ['onedrive', '-m']
+RUN mkdir $HOME/.config
+
+ADD ./onedrive.conf $HOME/.config/
+ADD ./start.sh $HOME/
+
+CMD $HOME/start.sh
