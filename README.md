@@ -19,9 +19,9 @@ docker pull kukki/docker-onedrive
 #### Step 2
 
 ```shell
-docker run -it --restart on-failure --name onedrive
+docker run -it --restart on-failure --name docker-onedrive
   -v /path/to/onedrive:/onedrive
-  docker-onedrive
+  kukki/docker-onedrive
 ```
 
 *Note:*
@@ -85,10 +85,10 @@ skip_dir = ".*"
 
 ```
 docker rm docker-onedrive
-docker run -it --restart on-failure --name onedrive
+docker run -it --restart on-failure --name docker_onedrive
   -v /path/to/onedrive:/onedrive
   -v /path/to/onedrive.conf:/usr/local/etc/onedrive.conf
-  docker-onedrive
+  kukki/docker-onedrive
 ```
 
 * Follow `step 3` and `step 4` in `Quick Start`.
