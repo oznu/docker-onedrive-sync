@@ -17,9 +17,9 @@ RUN cd onedrive-master && make && make install
 
 VOLUME ["/usr/local/etc/my_onedrive.conf", "/onedrive"]
 
-RUN mkdir $HOME/.config
+RUN mkdir /root/.config
 
-ADD ./onedrive.conf $HOME/.config/
-ADD ./start.sh $HOME/
+ADD ./onedrive.conf /root/.config/
+ADD ./start.sh /root/
 
-CMD $HOME/start.sh
+CMD /root/start.sh
