@@ -95,7 +95,7 @@ docker run -it --restart on-failure --name docker_onedrive
 
 
 
-## Credits
+## Reference
 
 * [OneDrive Free Client](https://github.com/skilion/onedrive)
 
