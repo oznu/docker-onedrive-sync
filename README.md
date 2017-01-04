@@ -13,7 +13,7 @@ This is a useful tool to synchronize your data between OneDrive (personal accoun
 #### Step 1
 
 ```shell
-docker pull kukki/docker-onedrive
+docker pull oznu/onedrive
 ```
 
 #### Step 2
@@ -21,7 +21,7 @@ docker pull kukki/docker-onedrive
 ```shell
 docker run -it --restart on-failure --name docker-onedrive
   -v /path/to/onedrive:/onedrive
-  kukki/docker-onedrive
+  oznu/onedrive
 ```
 
 *Note:*
@@ -88,7 +88,7 @@ docker rm docker-onedrive
 docker run -it --restart on-failure --name docker_onedrive
   -v /path/to/onedrive:/onedrive
   -v /path/to/onedrive.conf:/usr/local/etc/onedrive.conf
-  kukki/docker-onedrive
+  oznu/onedrive
 ```
 
 * Follow `step 3` and `step 4` in `Quick Start`.
