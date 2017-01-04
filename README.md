@@ -1,6 +1,6 @@
 # Docker-OneDrive
 
-
+This repository is forked from https://bitbucket.org/jkoo/docker-onedrive
 
 ## Introduction
 
@@ -78,7 +78,7 @@ skip_file = ".*|~*"
 skip_dir = ".*"
 ```
 
-* Copy and paste your client ID to `clien_id` parameter.
+* Copy and paste your client ID to `client_id` parameter.
 * For reference of `onedrive.conf` settings, please see [this configuration](https://github.com/skilion/onedrive#configuration).
 
 #### Step 4 - Re-create Docker Containers
@@ -97,6 +97,7 @@ docker run -it --restart on-failure --name docker_onedrive
 
 ## Reference
 
+* [Jimmy Koo/docker-onedrive](https://bitbucket.org/jkoo/docker-onedrive)
 * [OneDrive Free Client](https://github.com/skilion/onedrive)
 
 
