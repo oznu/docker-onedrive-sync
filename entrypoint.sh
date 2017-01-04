@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Here!"
-
 if [ -f $HOME/onedrive.conf ]
 then
   cp -f $HOME/.config/onedrive.conf $HOME/.config/onedrive_backup.conf
