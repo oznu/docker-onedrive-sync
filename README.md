@@ -1,4 +1,4 @@
-# Docker-OneDrive
+# Docker OneDrive Sync
 
 This repository is forked from https://bitbucket.org/jkoo/docker-onedrive
 
