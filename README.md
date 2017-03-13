@@ -7,7 +7,6 @@ This repository is forked from https://bitbucket.org/jkoo/docker-onedrive
 This is a useful tool to synchronize your data between OneDrive (personal account only) and any environment that supports Docker. It uses [Ubuntu](https://hub.docker.com/_/ubuntu/) as base layer and [OneDrive Free Client](https://github.com/skilion/onedrive).
 
 
-
 ## Quick Start
 
 #### Step 1
@@ -20,7 +19,7 @@ docker pull oznu/onedrive
 
 ```shell
 docker run -it --restart on-failure --name docker-onedrive
-  -v /path/to/onedrive:/onedrive
+  -v /path/to/onedrive:/home/root/.config/onedrive
   oznu/onedrive
 ```
 
@@ -86,8 +85,7 @@ skip_dir = ".*"
 ```
 docker rm docker-onedrive
 docker run -it --restart on-failure --name docker_onedrive
-  -v /path/to/onedrive:/onedrive
-  -v /path/to/onedrive.conf:/usr/local/etc/onedrive.conf
+  -v /path/to/onedrive:/home/root/.config/onedrive
   oznu/onedrive
 ```
 
