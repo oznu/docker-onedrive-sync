@@ -20,6 +20,7 @@ To allow you to copy the URI back into the docker container you need to launch i
 
 ```shell
 docker run -it \
+  -e PUID=$(id -u) -e PGID=$(id -g) \
   -v </path/to/config>:/config \
   -v </path/to/documents>:/documents \
   oznu/onedrive
