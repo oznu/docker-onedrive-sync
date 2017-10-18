@@ -1,20 +1,26 @@
-FROM ubuntu
+# Multi-stage build - See https://docs.docker.com/engine/userguide/eng-image/multistage-build
 
-RUN apt-get update
-RUN apt-get -y install libcurl4-openssl-dev libsqlite3-dev wget gcc unzip make
+FROM dlanguage/dmd as dmd
 
-RUN wget http://downloads.dlang.org/releases/2.x/2.072.2/dmd_2.072.2-0_amd64.deb -O dmd.deb && dpkg -i dmd.deb
+RUN apt-get update \
+  && apt-get install -y git make libcurl4-openssl-dev libsqlite3-dev \
+  && git clone https://github.com/skilion/onedrive.git \
+  && cd onedrive \
+  && make \
+  && make install
 
-RUN wget https://github.com/skilion/onedrive/archive/master.zip && unzip master.zip
-RUN cd onedrive-master && make && make install
 
-VOLUME ["/usr/local/etc/my_onedrive.conf", "/onedrive"]
+# Primary image
+FROM oznu/s6-debian:latest
 
-RUN mkdir /root/.config
+RUN apt-get update \
+  && apt-get install -y libcurl4-openssl-dev libsqlite3-dev \
+  && mkdir /onedrive \
+  && chown abc:abc /onedrive
 
-ADD ./onedrive.conf /root/.config/
-ADD ./entrypoint.sh /root/
+COPY --from=dmd /usr/local/bin/onedrive /usr/local/bin/onedrive
+COPY root /
 
-ENTRYPOINT ["/root/entrypoint.sh"]
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 
-CMD ["/usr/local/bin/onedrive", "-m"]
+CMD ["/start.sh"]

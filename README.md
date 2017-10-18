@@ -1,105 +1,68 @@
 # Docker OneDrive Sync
 
-This repository is forked from https://bitbucket.org/jkoo/docker-onedrive
+This Docker image powered by [skilion/onedrive](https://github.com/skilion/onedrive) allows you to sync a local volume with OneDrive.
 
-## Introduction
+## Setup - First Run
 
-This is a useful tool to synchronize your data between OneDrive (personal account only) and any environment that supports Docker. It uses [Ubuntu](https://hub.docker.com/_/ubuntu/) as base layer and [OneDrive Free Client](https://github.com/skilion/onedrive).
+When first launching the container you will need to authenticate with your Microsoft account. The procedure requires a web browser. You will be asked to open a specific link where you will have to login into your Microsoft Account and give the application the permission to access your files. After giving the permission, you will be redirected to a blank page. Copy the URI of the blank page into the application.
 
-
-## Quick Start
-
-#### Step 1
+To allow you to copy the URI back into the docker container you need to launch it in interactive mode, this can be done using the `-it` flag.
 
 ```shell
-docker pull oznu/onedrive
+docker run -it -v </path/to/config>:/config -v </path/to/documents>:/onedrive oznu/onedrive
 ```
 
-#### Step 2
+Once authenticated you can stop the sync process and restart the container in non-interactive mode.
+
+## Usage
 
 ```shell
-docker run -it --restart on-failure --name docker-onedrive
-  -v /path/to/onedrive:/home/root/.config/onedrive
+docker run \
+  -e PUID=<UID> -e PGID=<GID> \
+  -e TZ=<timezone> \
+  -v </path/to/config>:/config \
+  -v </path/to/documents>:/documents \
   oznu/onedrive
 ```
 
-*Note:*
+## Parameters
 
-- Update `/path/to` to your actual path of onedrive root and onedrive.conf.
-- `--restart on-failure` is to set auto-restart when the sync is timeout due to the connection.
+The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side.
 
-#### Step 3
+* `-v /config` - This is where the OneDrive Client will store it's config. See [skilion/onedrive#configuration](https://github.com/skilion/onedrive#configuration)
+* `-v /documents` - This is the folder that will be synced with OneDrive
+* `-e TZ` - for [timezone information](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) e.g. `-e TZ=Europe/London`
+* `-e PGID` - for GroupID - This should match the GID of the user who owns the local files
+* `-e PUID` - for UserID - This should match the UID of the user who owns the local files
+* `-e DEBUG=1` - to enable verbose logging set `DEBUG=1`
 
-* Copy the URL in the prompt and visit it on your browser.
+## Docker Compose
 
-* It authenticates and authorizes your Microsoft account.
+If you prefer to use [Docker Compose](https://docs.docker.com/compose/):
 
-* After you accept the application, a response URI is updated in the browser.
-
-* Copy the URI to the prompt and hit `Enter`
-
-#### Step 4
-
-You can keep the docker container running in the foreground.
-
--- or --
-
-You can hit `CTRL-C` to stop it and then **re-start** the container.
-
-```shell
-docker start docker-onedrive
+```yml
+version: '2'
+services:
+  onedrive:
+    image: oznu/onedrive
+    restart: always
+    environment:
+      - TZ=Australia/Sydney
+      - PGID=911
+      - PUID=911
+    volumes:
+      - ./config:/config
+      - /home/oznu:/documents
 ```
 
-
-
-## Advanced Use
-
-#### Step 1 - Register Your App
-
-* Visit [Official Guide](https://dev.onedrive.com/app-registration.htm) for reference.
-
-
-* Visit [Microsoft Application Registration Portal](https://apps.dev.microsoft.com/?referrer=https%3A%2F%2Fdev.onedrive.com%2Fapp-registration.htm) to add an app.
-
-#### Step 2 - Retrieve Your Client ID
-
-* Choose `Mobile application` in Platforms.
-* The client ID is then available.
-
-#### Step 3 - Apply the Client ID
-
-* Create file `onedrive.conf` in your convenient place with the following content:
+To authenticate with your Microsoft account for the first time run (this will start the container in interactive mode):
 
 ```
-client_id = "";
-sync_dir = "/onedrive"
-skip_file = ".*|~*"
-skip_dir = ".*"
+docker-compose run onedrive
 ```
 
-* Copy and paste your client ID to `client_id` parameter.
-* For reference of `onedrive.conf` settings, please see [this configuration](https://github.com/skilion/onedrive#configuration).
-
-#### Step 4 - Re-create Docker Containers
+You can then start the container in non-interactive and run it as a background process:
 
 ```
-docker rm docker-onedrive
-docker run -it --restart on-failure --name docker_onedrive
-  -v /path/to/onedrive:/home/root/.config/onedrive
-  oznu/onedrive
+docker-compose up -d
 ```
-
-* Follow `step 3` and `step 4` in `Quick Start`.
-
-
-
-## Reference
-
-* [Jimmy Koo/docker-onedrive](https://bitbucket.org/jkoo/docker-onedrive)
-* [OneDrive Free Client](https://github.com/skilion/onedrive)
-
-
-
-## License
-
-* [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0.en.html)
