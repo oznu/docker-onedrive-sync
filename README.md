@@ -2,7 +2,16 @@
 
 This Docker image powered by [skilion/onedrive](https://github.com/skilion/onedrive) allows you to sync a local volume with OneDrive.
 
+### Features:
+
+* State caching
+* File monitoring
+* Resumable uploads
+* Supports OneDrive for Business and OneDrive Personal
+
 ## Setup - First Run
+
+
 
 When first launching the container you will need to authenticate with your Microsoft account. The procedure requires a web browser. You will be asked to open a specific link where you will have to login into your Microsoft Account and give the application the permission to access your files. After giving the permission, you will be redirected to a blank page. Copy the URI of the blank page into the application.
 
@@ -13,6 +22,8 @@ docker run -it -v </path/to/config>:/config -v </path/to/documents>:/documents o
 ```
 
 Once authenticated you can stop the sync process and restart the container in non-interactive mode.
+
+[![asciicast](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu.png)](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu)
 
 ## Usage
 
