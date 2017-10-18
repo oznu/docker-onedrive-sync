@@ -9,7 +9,7 @@ When first launching the container you will need to authenticate with your Micro
 To allow you to copy the URI back into the docker container you need to launch it in interactive mode, this can be done using the `-it` flag.
 
 ```shell
-docker run -it -v </path/to/config>:/config -v </path/to/documents>:/onedrive oznu/onedrive
+docker run -it -v </path/to/config>:/config -v </path/to/documents>:/documents oznu/onedrive
 ```
 
 Once authenticated you can stop the sync process and restart the container in non-interactive mode.
