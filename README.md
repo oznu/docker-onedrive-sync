@@ -11,19 +11,21 @@ This Docker image powered by [skilion/onedrive](https://github.com/skilion/onedr
 
 ## Setup - First Run
 
-
+[![asciicast](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu.png)](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu)
 
 When first launching the container you will need to authenticate with your Microsoft account. The procedure requires a web browser. You will be asked to open a specific link where you will have to login into your Microsoft Account and give the application the permission to access your files. After giving the permission, you will be redirected to a blank page. Copy the URI of the blank page into the application.
 
 To allow you to copy the URI back into the docker container you need to launch it in interactive mode, this can be done using the `-it` flag.
 
+
 ```shell
-docker run -it -v </path/to/config>:/config -v </path/to/documents>:/documents oznu/onedrive
+docker run -it \
+  -v </path/to/config>:/config \
+  -v </path/to/documents>:/documents \
+  oznu/onedrive
 ```
 
 Once authenticated you can stop the sync process and restart the container in non-interactive mode.
-
-[![asciicast](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu.png)](https://asciinema.org/a/jUXikuR4MHHHTgLBypWDKB6Vu)
 
 ## Usage
 
