@@ -17,7 +17,7 @@ else
     echo
     echo "Please re-start start the container in interactive mode using the -it flag:"
     echo
-    echo "docker run -it -v /local/config/path:/config -v /local/documents/path:/onedrive oznu/onedrive"
+    echo "docker run -it -v /local/config/path:/config -v /local/documents/path:/documents oznu/onedrive"
     echo
     echo "Once authorized you can re-create container with interactive mode disabled."
     echo "-------------------------------------"
@@ -36,4 +36,4 @@ fi
 
 echo "Starting onedrive client..."
 
-s6-setuidgid abc onedrive --monitor --confdir=/config --syncdir=/onedrive --verbose=${VERBOSE}
+s6-setuidgid abc onedrive --monitor --confdir=/config --syncdir=/documents --verbose=${VERBOSE}

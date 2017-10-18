@@ -15,8 +15,8 @@ FROM oznu/s6-debian:latest
 
 RUN apt-get update \
   && apt-get install -y libcurl4-openssl-dev libsqlite3-dev \
-  && mkdir /onedrive \
-  && chown abc:abc /onedrive
+  && mkdir /documents \
+  && chown abc:abc /documents
 
 COPY --from=dmd /usr/local/bin/onedrive /usr/local/bin/onedrive
 COPY root /
