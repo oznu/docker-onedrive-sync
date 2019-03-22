@@ -4,7 +4,7 @@ FROM dlanguage/dmd as dmd
 
 RUN apt-get update \
   && apt-get install -y git make libcurl4-openssl-dev libsqlite3-dev \
-  && git clone https://github.com/skilion/onedrive.git \
+  && git clone https://github.com/abraunegg/onedrive.git \
   && cd onedrive \
   && make \
   && make install

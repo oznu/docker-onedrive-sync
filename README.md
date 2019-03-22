@@ -1,6 +1,6 @@
 # Docker OneDrive Sync
 
-This Docker image powered by [skilion/onedrive](https://github.com/skilion/onedrive) allows you to sync a local volume with OneDrive.
+This Docker image powered by [abraunegg/onedrive](https://github.com/abraunegg/onedrive) allows you to sync a local volume with OneDrive.
 
 ### Features:
 
@@ -43,7 +43,7 @@ docker run \
 
 The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side.
 
-* `-v /config` - This is where the OneDrive Client will store it's config. See [skilion/onedrive#configuration](https://github.com/skilion/onedrive#configuration)
+* `-v /config` - This is where the OneDrive Client will store it's config. See [abraunegg/onedrive#configuration](https://github.com/abraunegg/onedrive#configuration)
 * `-v /documents` - This is the folder that will be synced with OneDrive
 * `-e TZ` - for [timezone information](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) e.g. `-e TZ=Europe/London`
 * `-e PGID` - for GroupID - This should match the GID of the user who owns the local files
